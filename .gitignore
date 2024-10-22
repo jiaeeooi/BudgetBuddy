@@ -1,0 +1,27 @@
+# Java related
+*.class
+*.jar
+*.war
+*.ear
+
+# Logs
+*.log
+
+# Package Files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+.project
+.classpath
+/.settings/
+/bin/
+/tmp/
+/target/
+
+# JavaFX
+/build/
+
+# Ignore JRE and JavaFX SDK libraries
+lib/
