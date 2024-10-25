@@ -46,14 +46,16 @@
             <Font size="13.0" />
          </font>
       </Label>
-      <TextField layoutX="66.0" layoutY="136.0" promptText="Enter Account Name" />
-      <TextField layoutX="66.0" layoutY="273.0" promptText="\$0.00" />
-      <DatePicker fx:id="datePicker" layoutX="66.0" layoutY="206.0">
+  	 
+      <TextField fx:id ="accountNameField" layoutX="66.0" layoutY="136.0" promptText="Enter Account Name" /> 
+      <TextField fx:id = "openingBalanceField" layoutX="66.0" layoutY="273.0" promptText="\$0.00" />
+      <DatePicker fx:id = "openDateField" layoutX="66.0" layoutY="206.0">
+      
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </DatePicker>
-      <Button layoutX="197.0" layoutY="328.0" mnemonicParsing="false" text="Submit" />
-      <Button layoutX="137.0" layoutY="328.0" mnemonicParsing="false" text="Cancel" />
+      <Button fx:id = "submitButton" layoutX="197.0" layoutY="328.0" mnemonicParsing="false" text="Submit" onAction="#handleSubmit" />
+      <Button fx:id = "cancelButton" layoutX="137.0" layoutY="328.0" mnemonicParsing="false" text="Cancel" onAction ="#handleCancel" />
    </children>
 </AnchorPane>
