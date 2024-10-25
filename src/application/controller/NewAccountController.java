@@ -12,6 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NewAccountController {
 	
@@ -30,29 +32,47 @@ public class NewAccountController {
 	@FXML
 	private Button cancelButton; 
 	
-	@FXML  //the @FXML annotation is neccessary to make javaFX aware of the handle submit as an event handler 
+	private List<String> accountNames = new ArrayList<>();
+	
+	@FXML
+	public void initialize() {
+		openDateField.setValue(LocalDate.now());
+	}
+	
+	@FXML 
 	private void handleSubmit() {
 		String accountName = accountNameField.getText();
 		LocalDate openingDate = openDateField.getValue();
-		int openingBalance = Integer.parseInt(openingBalanceField.getText()); //since we are using a text field, convert the string into an int 
+		double openingBalance; 
 		
-		 if (accountName.isEmpty() || openingDate == null || openingBalance == 0) {
-	            // Show an error alert if fields are empty
-	            Alert alert = new Alert(AlertType.ERROR);
-	            alert.setTitle("Error");
-	            alert.setHeaderText("Input Validation Failed");
-	            alert.setContentText("Please fill in all required fields and ensure your beginning deposit is not 0.");
-	            alert.showAndWait();
-	        } 
+		 if (accountName.isEmpty() || openingDate == null || openingBalanceField.getText().isEmpty()) {
+	         // Show an error alert if fields are empty
+			 showAlert(AlertType.ERROR, "Input Validation Failed", "Please fill in all required fields.");
+			 return;
+	     } 
 		 
-		 else {
-	            // Store or process user data (for now, just print it)
-	            System.out.println("Account Name: " + accountName);
-	            System.out.println("Opening Date: " + openingDate);
-	            System.out.println("Opening Balance: " + openingBalance);
-	        }
-
-	
+		 try {
+			 openingBalance = Double.parseDouble(openingBalanceField.getText());
+		 } catch (NumberFormatException e) {
+			 showAlert(AlertType.ERROR, "Invalid Balance", "Opening balance must be a valid number.");
+	         return;
+		 }
+		 
+		 if (openingBalance <= 0) {
+			 showAlert(AlertType.ERROR, "Invalid Balance", "Opening balance must be greater than 0.");
+			 return;
+	     }
+	     
+	     // Check for duplicate account name
+	     if (accountNames.contains(accountName)) {
+	    	 showAlert(AlertType.ERROR, "Duplicate Account Name", "An account with this name already exists.");
+	         return;
+	     }
+	     
+	     accountNames.add(accountName);
+	     
+	     // Show success message
+	     showAlert(AlertType.INFORMATION, "Account Created", "The account was successfully created.");
 	
 	}
 	
@@ -60,8 +80,16 @@ public class NewAccountController {
 	private void handleCancel() {
         // Clear the fields when Cancel is clicked
         accountNameField.clear();
-        openDateField.setValue(null);
+        openDateField.setValue(LocalDate.now());
         openingBalanceField.clear();
+    }
+	
+    private void showAlert(AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
 
