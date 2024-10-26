@@ -61,8 +61,8 @@ public class NewAccountController {
 	         return;
 		 }
 		 
-		 if (openingBalance <= 0) {
-			 showAlert(AlertType.ERROR, "Invalid Balance", "Opening balance must be greater than 0.");
+		 if (openingBalance < 0) {
+			 showAlert(AlertType.ERROR, "Invalid Balance", "Opening balance must be greater or equal to 0.");
 			 return;
 	     }
 		 

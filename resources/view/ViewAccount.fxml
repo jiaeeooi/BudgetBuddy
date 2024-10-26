@@ -6,13 +6,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ViewAccountController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ViewAccountController">
    <children>
-      <TableView layoutX="8.0" layoutY="42.0" prefHeight="316.0" prefWidth="285.0">
+      <TableView fx:id="accountTable" layoutX="20.0" layoutY="38.0" prefHeight="340.0" prefWidth="360.1">
         <columns>
-          <TableColumn prefWidth="95.0" text="Account Name" />
-          <TableColumn prefWidth="100.0" text="Opening Balance" />
-            <TableColumn prefWidth="90.0" sortType="DESCENDING" text="Opening Date" />
+          <TableColumn fx:id="accountNameColumn" prefWidth="150.0" text="Account Name" />
+          <TableColumn fx:id="openingBalanceColumn" prefWidth="109.0" text="Opening Balance" />
+            <TableColumn fx:id="openingDateColumn" prefWidth="100.0" sortType="DESCENDING" text="Opening Date" />
         </columns>
       </TableView>
       <Label layoutX="27.0" layoutY="8.0" text="View Account">
