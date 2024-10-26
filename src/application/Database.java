@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 public class Database {
 
-	private static final String databaseURL = "jdbc:sqlite:db/Database.db";
+	private static final String databaseURL = "jdbc:sqlite:db/Accounts.db";
 	
 	public static Connection connect() {  //this allows us to connect to SQLite
 		Connection conn = null;
@@ -23,8 +23,8 @@ public class Database {
 		return conn; 
 	}
 	
-	public static void initializeDatabase() {
-		String sql = "CREATE TABLE IF NOT EXISTS bank (\n" //Create the table and set up the columns
+	public static void initializeAccountsDatabase() {
+		String sql = "CREATE TABLE IF NOT EXISTS Accounts (\n" //Create the table and set up the columns
 		        + "    id INTEGER PRIMARY KEY AUTOINCREMENT, \n" // Auto-incrementing primary key
 				+ "		name TEXT NOT NULL, \n"  //Use string adding for formatting you can write it as a whole string if you want 
 				+ " 	balance REAL NOT NULL, \n"

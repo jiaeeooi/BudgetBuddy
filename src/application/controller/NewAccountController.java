@@ -99,7 +99,7 @@ public class NewAccountController {
     }
     
     private void insertAccount(String accountName, double openingBalance, LocalDate openingDate) {
-        String sql = "INSERT INTO bank(name, balance, opening) VALUES(?, ?, ?)";
+        String sql = "INSERT INTO Accounts(name, balance, opening) VALUES(?, ?, ?)";
         try (Connection conn = Database.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, accountName);
@@ -114,7 +114,7 @@ public class NewAccountController {
     }
     
     private boolean isDuplicateAccount(String accountName) {
-        String sql = "SELECT COUNT(*) FROM bank WHERE name = ?";
+        String sql = "SELECT COUNT(*) FROM Accounts WHERE name = ?";
         try (Connection conn = Database.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, accountName);
