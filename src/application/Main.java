@@ -5,7 +5,6 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.fxml.FXMLLoader;
-import application.database; 
 
 
 public class Main extends Application {
@@ -26,7 +25,7 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 
-		database.initializeDatabase(); //intialize the database on start 
+		Database.initializeDatabase(); //initialize the database on start 
 	}
 	
 	public static void main(String[] args) {

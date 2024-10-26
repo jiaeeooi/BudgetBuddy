@@ -11,9 +11,14 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+
+import application.Database;
 
 public class NewAccountController {
 	
@@ -31,8 +36,6 @@ public class NewAccountController {
 	
 	@FXML
 	private Button cancelButton; 
-	
-	private List<String> accountNames = new ArrayList<>();
 	
 	@FXML
 	public void initialize() {
@@ -62,14 +65,17 @@ public class NewAccountController {
 			 showAlert(AlertType.ERROR, "Invalid Balance", "Opening balance must be greater than 0.");
 			 return;
 	     }
+		 
+		 // Round the opening balance to 2 decimal places
+		 openingBalance = Math.round(openingBalance * 100.0) / 100.0;
 	     
 	     // Check for duplicate account name
-	     if (accountNames.contains(accountName)) {
+	     if (isDuplicateAccount(accountName)) {
 	    	 showAlert(AlertType.ERROR, "Duplicate Account Name", "An account with this name already exists.");
 	         return;
 	     }
 	     
-	     accountNames.add(accountName);
+	     insertAccount(accountName, openingBalance, openingDate);
 	     
 	     // Show success message
 	     showAlert(AlertType.INFORMATION, "Account Created", "The account was successfully created.");
@@ -91,5 +97,36 @@ public class NewAccountController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    
+    private void insertAccount(String accountName, double openingBalance, LocalDate openingDate) {
+        String sql = "INSERT INTO bank(name, balance, opening) VALUES(?, ?, ?)";
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, accountName);
+            pstmt.setDouble(2, openingBalance);
+            pstmt.setString(3, openingDate.toString());
+            pstmt.executeUpdate();
+            System.out.println("Account inserted");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            showAlert(AlertType.ERROR, "Database Error", "Could not save the account to the database.");
+        }
+    }
+    
+    private boolean isDuplicateAccount(String accountName) {
+        String sql = "SELECT COUNT(*) FROM bank WHERE name = ?";
+        try (Connection conn = Database.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, accountName);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Returns true if account exists
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            showAlert(AlertType.ERROR, "Database Error", "Could not check for duplicate account.");
+        }
+        return false; // Returns false if there was an error or account does not exist
+    }    
 }
 
