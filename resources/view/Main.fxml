@@ -6,12 +6,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="mainBox" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: snow;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainController">
+<HBox fx:id="mainBox" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: snow;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainController">
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: aliceblue;">
          <children>
             <Button layoutX="33.0" layoutY="142.0" mnemonicParsing="false" onAction="#defineNewAccountOp" prefHeight="45.0" prefWidth="110.0" text="New Account" wrapText="true" />
-            <Button layoutX="158.0" layoutY="142.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="110.0" text="View Account" wrapText="true" />
+            <Button layoutX="158.0" layoutY="142.0" mnemonicParsing="false" onAction="#viewAccountOp" prefHeight="45.0" prefWidth="110.0" text="View Account" wrapText="true" />
             <Button layoutX="33.0" layoutY="211.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="110.0" text="New Transaction" textAlignment="CENTER" wrapText="true" />
             <Button layoutX="158.0" layoutY="211.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="110.0" text="Scheduled Transaction" textAlignment="CENTER" wrapText="true" />
             <Button layoutX="88.0" layoutY="277.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="125.0" text="New Transaction Type" textAlignment="CENTER" wrapText="true" />
