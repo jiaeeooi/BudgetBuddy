@@ -14,7 +14,7 @@
             <Button layoutX="158.0" layoutY="142.0" mnemonicParsing="false" onAction="#viewAccountOp" prefHeight="45.0" prefWidth="110.0" text="View Account" wrapText="true" />
             <Button layoutX="33.0" layoutY="211.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="110.0" text="New Transaction" textAlignment="CENTER" wrapText="true" />
             <Button layoutX="158.0" layoutY="211.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="110.0" text="Scheduled Transaction" textAlignment="CENTER" wrapText="true" />
-            <Button layoutX="88.0" layoutY="277.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="125.0" text="New Transaction Type" textAlignment="CENTER" wrapText="true" />
+            <Button layoutX="88.0" layoutY="277.0" mnemonicParsing="false" onAction="#defineNewTransactionTypeOp" prefHeight="45.0" prefWidth="125.0" text="New Transaction Type" textAlignment="CENTER" wrapText="true" />
             <Label layoutX="77.0" layoutY="46.0" prefHeight="51.0" prefWidth="147.0" text="BudgetBuddy" textAlignment="CENTER">
                <font>
                   <Font size="24.0" />

@@ -29,7 +29,8 @@ public class ViewAccountController {
     @FXML
     private TableColumn<Account, String> openingDateColumn;
     
-
+    private static final String AccountsURL = "jdbc:sqlite:db/Accounts.db";
+    
     @FXML
     public void initialize() {
     	// Set up the columns
@@ -50,7 +51,7 @@ public class ViewAccountController {
 
         String query = "SELECT * FROM Accounts ORDER BY opening DESC";
 
-        try (Connection conn = Database.connect();
+        try (Connection conn = Database.connect(AccountsURL);
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
 

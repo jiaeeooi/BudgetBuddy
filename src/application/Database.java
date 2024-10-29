@@ -7,13 +7,14 @@ import java.sql.Statement;
 
 public class Database {
 
-	private static final String databaseURL = "jdbc:sqlite:db/Accounts.db";
+	private static final String AccountsURL = "jdbc:sqlite:db/Accounts.db";
+	private static final String TransactionTypesURL = "jdbc:sqlite:db/TransactionTypes.db";
 	
-	public static Connection connect() {  //this allows us to connect to SQLite
+	public static Connection connect(String url) {  //this allows us to connect to SQLite
 		Connection conn = null;
 		try {
 			Class.forName("org.sqlite.JDBC"); 
-			conn = DriverManager.getConnection(databaseURL); 
+			conn = DriverManager.getConnection(url); 
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		} catch (ClassNotFoundException e) {
@@ -30,7 +31,20 @@ public class Database {
 				+ " 	balance REAL NOT NULL, \n"
 				+ "		opening TEXT NOT NULL \n"
 				+ ");"; 
-		try (Connection conn = connect(); 
+		try (Connection conn = connect(AccountsURL); 
+			 Statement stmt = conn.createStatement()){
+			stmt.execute(sql); //Execute the statement to create the table 
+		} catch (SQLException e) {
+			System.out.println(e.getMessage()); 
+		}
+	}
+	
+	public static void initializeTransactionTypesDatabase() {
+		String sql = "CREATE TABLE IF NOT EXISTS TransactionTypes (\n" //Create the table and set up the column
+		        + "    id INTEGER PRIMARY KEY AUTOINCREMENT, \n" // Auto-incrementing primary key
+				+ "		type TEXT NOT NULL \n"  
+				+ ");"; 
+		try (Connection conn = connect(TransactionTypesURL); 
 			 Statement stmt = conn.createStatement()){
 			stmt.execute(sql); //Execute the statement to create the table 
 		} catch (SQLException e) {
