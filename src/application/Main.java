@@ -26,7 +26,8 @@ public class Main extends Application {
 		}
 
 		Database.initializeAccountsDatabase(); 
-		Database.initializeTransactionTypesDatabase(); 
+		Database.initializeTransactionTypesDatabase();
+		Database.initializeTransactionsDatabase();
 	}
 	
 	public static void main(String[] args) {
