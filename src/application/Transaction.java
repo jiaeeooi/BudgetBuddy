@@ -21,7 +21,7 @@ public class Transaction {
     public String getAccount() { return account; }
     public String getTransactionType() { return transactionType; }
     public String getTransactionDate() { return transactionDate; }
-    public String getDescription() { return transactionDescription; }
+    public String getTransactionDescription() { return transactionDescription; }
     public Double getPaymentAmount() { return paymentAmount; }
     public Double getDepositAmount() { return depositAmount; }
 }
