@@ -25,7 +25,9 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 
-		Database.initializeAccountsDatabase(); //initialize the database on start 
+		Database.initializeAccountsDatabase(); 
+		Database.initializeTransactionTypesDatabase();
+		Database.initializeTransactionsDatabase();
 	}
 	
 	public static void main(String[] args) {

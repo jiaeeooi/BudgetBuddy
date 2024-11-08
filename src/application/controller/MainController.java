@@ -12,12 +12,6 @@ public class MainController {
 	
 	@FXML HBox mainBox;
 	
-	/*
-	public void initialize() {
-		defineNewAccountOp();
-	}
-	*/
-	
 	@FXML 
 	public void defineNewAccountOp() {
 		URL url = getClass().getClassLoader().getResource("view/NewAccount.fxml");
@@ -34,6 +28,32 @@ public class MainController {
 	
 	public void viewAccountOp() {
 		URL url = getClass().getClassLoader().getResource("view/ViewAccount.fxml");
+		try {
+			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
+			if (mainBox.getChildren().size() > 1) {
+				mainBox.getChildren().remove(1);
+			}
+			mainBox.getChildren().add(pane1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void defineNewTransactionTypeOp() {
+		URL url = getClass().getClassLoader().getResource("view/NewTransactionType.fxml");
+		try {
+			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
+			if (mainBox.getChildren().size() > 1) {
+				mainBox.getChildren().remove(1);
+			}
+			mainBox.getChildren().add(pane1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void defineNewTransactionOp() {
+		URL url = getClass().getClassLoader().getResource("view/NewTransaction.fxml");
 		try {
 			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
 			if (mainBox.getChildren().size() > 1) {

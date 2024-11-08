@@ -37,6 +37,8 @@ public class NewAccountController {
 	@FXML
 	private Button cancelButton; 
 	
+	private static final String AccountsURL = "jdbc:sqlite:db/Accounts.db";
+	
 	@FXML
 	public void initialize() {
 		openDateField.setValue(LocalDate.now());
@@ -100,7 +102,7 @@ public class NewAccountController {
     
     private void insertAccount(String accountName, double openingBalance, LocalDate openingDate) {
         String sql = "INSERT INTO Accounts(name, balance, opening) VALUES(?, ?, ?)";
-        try (Connection conn = Database.connect();
+        try (Connection conn = Database.connect(AccountsURL);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, accountName);
             pstmt.setDouble(2, openingBalance);
@@ -115,7 +117,7 @@ public class NewAccountController {
     
     private boolean isDuplicateAccount(String accountName) {
         String sql = "SELECT COUNT(*) FROM Accounts WHERE name = ?";
-        try (Connection conn = Database.connect();
+        try (Connection conn = Database.connect(AccountsURL);
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, accountName);
             ResultSet rs = pstmt.executeQuery();
