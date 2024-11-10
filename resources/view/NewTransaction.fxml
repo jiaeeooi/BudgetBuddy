@@ -45,8 +45,8 @@
             <Font size="13.0" />
          </font>
       </Label>
-      <Label layoutX="110.0" layoutY="38.0" text="*" textFill="#ee0606" />
-      <Label layoutX="149.0" layoutY="89.0" text="*" textFill="#ee0606" />
+      <Label layoutX="107.0" layoutY="38.0" text="*" textFill="#ee0606" />
+      <Label layoutX="149.0" layoutY="90.0" text="*" textFill="#ee0606" />
       <Label layoutX="155.0" layoutY="140.0" text="*" textFill="#ee0606" />
       <ChoiceBox fx:id="accountDropdown" layoutX="56.0" layoutY="62.0" prefHeight="25.0" prefWidth="330.0" />
       <ChoiceBox fx:id="transactionTypeDropdown" layoutX="56.0" layoutY="112.0" prefHeight="25.0" prefWidth="330.0" />
