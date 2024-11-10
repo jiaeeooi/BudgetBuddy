@@ -86,10 +86,10 @@ public class NewScheduledTransactionController {
 	    String account = accountDropdown.getValue();
 	    String transactionType = transactionTypeDropdown.getValue();
 	    String frequency = frequencyDropdown.getValue();
-	    String dueDate = dueDateField.getText();
+	    String dueDateText = dueDateField.getText();
 	    String paymentAmountText = paymentAmountField.getText();
 	    
-	    if (scheduleName.isEmpty() || account == null || transactionType == null || frequency == null || dueDate.isEmpty() || paymentAmountText.isEmpty()) {
+	    if (scheduleName.isEmpty() || account == null || transactionType == null || frequency == null || dueDateText.isEmpty() || paymentAmountText.isEmpty()) {
 	        showAlert(Alert.AlertType.ERROR, "Input Validation Failed", "Please fill in all required fields.");
 	        return;
 	    }
@@ -99,8 +99,6 @@ public class NewScheduledTransactionController {
 	         return;
 	     }
 	    
-	    /* 
-	    // This block of code is to check if the entered due date is a valid Integer
 	    int dueDate;
 	    try {
 	        dueDate = Integer.parseInt(dueDateText);
@@ -108,7 +106,6 @@ public class NewScheduledTransactionController {
 	        showAlert(Alert.AlertType.ERROR, "Invalid Due Date", "Due date must be a valid integer.");
 	        return;
 	    }
-	    */
 	    
 	    double paymentAmount;
 	    try {
@@ -130,7 +127,7 @@ public class NewScheduledTransactionController {
 	    showAlert(Alert.AlertType.INFORMATION, "Scheduled Transaction Saved", "The scheduled transaction was successfully saved.");
 	}
 	
-	private void insertScheduledTransaction(String scheduleName, String account, String transactionType, String frequency, String dueDate, double paymentAmount) {
+	private void insertScheduledTransaction(String scheduleName, String account, String transactionType, String frequency, int dueDate, double paymentAmount) {
 	    String sql = "INSERT INTO ScheduledTransactions (schedule_name, account_name, transaction_type, frequency, due_date, payment_amount) VALUES (?, ?, ?, ?, ?, ?)";
 	    try (Connection conn = Database.connect(ScheduledTransactionsURL); 
 	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -138,7 +135,7 @@ public class NewScheduledTransactionController {
 	        pstmt.setString(2, account);
 	        pstmt.setString(3, transactionType);
 	        pstmt.setString(4, frequency);
-	        pstmt.setString(5, dueDate);
+	        pstmt.setInt(5, dueDate);
 	        pstmt.setDouble(6, paymentAmount);
 	        pstmt.executeUpdate();                   
 	        System.out.println("Scheduled transaction inserted");

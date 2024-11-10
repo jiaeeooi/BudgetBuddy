@@ -90,4 +90,17 @@ public class MainController {
 			e.printStackTrace();
 		}
 	}
+	
+	public void viewScheduledTransactionOp() {
+		URL url = getClass().getClassLoader().getResource("view/ViewScheduledTransaction.fxml");
+		try {
+			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
+			if (mainBox.getChildren().size() > 1) {
+				mainBox.getChildren().remove(1);
+			}
+			mainBox.getChildren().add(pane1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

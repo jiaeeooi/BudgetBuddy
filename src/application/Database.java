@@ -83,7 +83,7 @@ public class Database {
                 + "    account_name TEXT NOT NULL, \n"
                 + "    transaction_type TEXT NOT NULL, \n"
                 + "    frequency TEXT NOT NULL, \n"
-                + "    due_date TEXT NOT NULL, \n"
+                + "    due_date INTEGER NOT NULL, \n"
                 + "    payment_amount REAL NOT NULL \n"
                 + ");"; 
         try (Connection conn = connect(ScheduledTransactionsURL); 
