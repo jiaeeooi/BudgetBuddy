@@ -59,7 +59,7 @@ public class ViewScheduledTransactionController {
     private void loadScheduledTransactions() {
         ObservableList<ScheduledTransaction> scheduledTransactions = FXCollections.observableArrayList();
 
-        String query = "SELECT * FROM ScheduledTransactions ORDER BY due_date DESC";
+        String query = "SELECT * FROM ScheduledTransactions ORDER BY due_date ASC";
 
         try (Connection conn = Database.connect(ScheduledTransactionsURL);
              Statement stmt = conn.createStatement();
