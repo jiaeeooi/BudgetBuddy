@@ -75,6 +75,10 @@ public class EditTransactionController {
         depositAmountField.setText(String.valueOf(transaction.getDepositAmount()));
 	}
 	
+	public void setPreviousSearchQuery(String searchQuery) {
+	    this.previousSearchQuery = searchQuery;
+	}
+	
 	@FXML
 	private void handleSubmit() {
 		String account = accountDropdown.getValue();
@@ -145,10 +149,6 @@ public class EditTransactionController {
             System.out.println(e.getMessage());
             showAlert(AlertType.ERROR, "Database Error", "Could not update the transaction in the database.");
         }
-	}
-	
-	public void setPreviousSearchQuery(String searchQuery) {
-	    this.previousSearchQuery = searchQuery;
 	}
 	
 	@FXML
