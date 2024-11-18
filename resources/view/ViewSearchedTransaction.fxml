@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ViewSearchedTransactionController">
+   <children>
+      <Label layoutX="34.0" layoutY="10.0" text="View Searched Transaction">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TableView fx:id="searchedTransactionTable" layoutX="10.0" layoutY="46.0" prefHeight="305.0" prefWidth="481.0">
+         <columns>
+            <TableColumn fx:id="accountColumn" prefWidth="99.0" text="Account" />
+            <TableColumn fx:id="transactionTypeColumn" prefWidth="73.0" text="Type" />
+            <TableColumn fx:id="transactionDateColumn" prefWidth="72.0" text="Date" />
+            <TableColumn fx:id="transactionDescriptionColumn" prefWidth="110.0" text="Description" />
+            <TableColumn fx:id="paymentAmountColumn" prefWidth="63.0" text="Payment" />
+            <TableColumn fx:id="depositAmountColumn" prefWidth="62.0" text="Deposit" />
+         </columns>
+      </TableView>
+      <Button fx:id="backButton" layoutX="427.0" layoutY="363.0" mnemonicParsing="false" onAction="#handleBack" prefWidth="50.0" text="Back" />
+   </children>
+</AnchorPane>

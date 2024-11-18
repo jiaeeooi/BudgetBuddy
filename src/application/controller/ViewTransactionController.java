@@ -1,22 +1,38 @@
 package application.controller;
 
+import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import application.CommonObjs;
 import application.Database;
 import application.Transaction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
 public class ViewTransactionController {
 
+	private CommonObjs commonObjs = CommonObjs.getInstance();
+	
+	@FXML
+	private TextField descriptionSearchField;
+	
+	@FXML
+	private Button searchButton;
+	
 	@FXML
     private TableView<Transaction> transactionTable;
     
@@ -54,6 +70,32 @@ public class ViewTransactionController {
         transactionTable.setPlaceholder(new Label("No content in table"));
         
         loadTransactions();
+    }
+    
+    @FXML
+	private void handleSearch() {
+    	String searchText = descriptionSearchField.getText().toLowerCase();
+    	URL url = getClass().getClassLoader().getResource("view/ViewSearchedTransaction.fxml");
+    	
+    	if (searchText.isEmpty()) {
+    		return;
+        }
+    	
+    	try {
+    		FXMLLoader loader = new FXMLLoader(url);
+    		AnchorPane pane1 = loader.load();
+    		
+    		ViewSearchedTransactionController controller = loader.getController();
+            controller.setSearchQuery(searchText);
+    		
+    		HBox mainBox = commonObjs.getMainBox();
+			if (mainBox.getChildren().size() > 1) {
+				mainBox.getChildren().remove(1);
+			}
+			mainBox.getChildren().add(pane1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     
     private void loadTransactions() {

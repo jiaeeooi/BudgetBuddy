@@ -18,11 +18,11 @@
       <TableView fx:id="scheduledTransactionTable" layoutX="10.0" layoutY="77.0" prefHeight="305.0" prefWidth="481.0">
         <columns>
           <TableColumn fx:id="scheduleNameColumn" prefWidth="85.0" text="Name" />
-          <TableColumn fx:id="accountColumn" prefWidth="125.0" text="Account" />
-            <TableColumn fx:id="transactionTypeColumn" prefWidth="55.0" text="Type" />
-            <TableColumn fx:id="frequencyColumn" prefWidth="65.0" text="Frequency" />
-            <TableColumn fx:id="dueDateColumn" prefWidth="65.0" text="Due Date" />
-            <TableColumn fx:id="paymentAmountColumn" prefWidth="84.0" text="Payment" />
+          <TableColumn fx:id="accountColumn" prefWidth="137.0" text="Account" />
+            <TableColumn fx:id="transactionTypeColumn" prefWidth="60.0" text="Type" />
+            <TableColumn fx:id="frequencyColumn" prefWidth="67.0" text="Frequency" />
+            <TableColumn fx:id="dueDateColumn" prefWidth="60.0" text="Due Date" />
+            <TableColumn fx:id="paymentAmountColumn" prefWidth="70.0" text="Payment" />
         </columns>
       </TableView>
       <TextField layoutX="14.0" layoutY="43.0" prefHeight="25.0" prefWidth="413.0" promptText="Enter description to search..." />

@@ -25,7 +25,7 @@
             <TableColumn fx:id="depositAmountColumn" prefWidth="62.0" text="Deposit" />
         </columns>
       </TableView>
-      <TextField layoutX="14.0" layoutY="43.0" prefHeight="25.0" prefWidth="413.0" promptText="Enter description to search..." />
-      <Button layoutX="436.0" layoutY="43.0" mnemonicParsing="false" text="Search" />
+      <TextField fx:id="descriptionSearchField" layoutX="14.0" layoutY="43.0" prefHeight="25.0" prefWidth="413.0" promptText="Enter description to search..." />
+      <Button fx:id="searchButton" layoutX="436.0" layoutY="43.0" mnemonicParsing="false" onAction="#handleSearch" text="Search" />
    </children>
 </AnchorPane>
