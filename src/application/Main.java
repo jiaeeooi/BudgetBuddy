@@ -28,6 +28,7 @@ public class Main extends Application {
 		Database.initializeAccountsDatabase(); 
 		Database.initializeTransactionTypesDatabase();
 		Database.initializeTransactionsDatabase();
+		Database.initializeScheduledTransactionsDatabase();
 	}
 	
 	public static void main(String[] args) {

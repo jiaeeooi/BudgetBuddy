@@ -13,6 +13,7 @@ public class Database {
 	private static final String AccountsURL = "jdbc:sqlite:db/Accounts.db";
 	private static final String TransactionTypesURL = "jdbc:sqlite:db/TransactionTypes.db";
 	private static final String TransactionsURL = "jdbc:sqlite:db/Transactions.db";
+	private static final String ScheduledTransactionsURL = "jdbc:sqlite:db/ScheduledTransactions.db";
 
 	
 	public static Connection connect(String url) {  //this allows us to connect to SQLite
@@ -68,6 +69,24 @@ public class Database {
                 + "    deposit_amount REAL \n"
                 + ");"; 
         try (Connection conn = connect(TransactionsURL); 
+             Statement stmt = conn.createStatement()){
+            stmt.execute(sql); 
+        } catch (SQLException e) {
+            System.out.println(e.getMessage()); 
+        }
+    }
+	
+	public static void initializeScheduledTransactionsDatabase() {
+        String sql = "CREATE TABLE IF NOT EXISTS ScheduledTransactions (\n"
+                + "    id INTEGER PRIMARY KEY AUTOINCREMENT, \n"
+                + "    schedule_name TEXT NOT NULL, \n"
+                + "    account_name TEXT NOT NULL, \n"
+                + "    transaction_type TEXT NOT NULL, \n"
+                + "    frequency TEXT NOT NULL, \n"
+                + "    due_date INTEGER NOT NULL, \n"
+                + "    payment_amount REAL NOT NULL \n"
+                + ");"; 
+        try (Connection conn = connect(ScheduledTransactionsURL); 
              Statement stmt = conn.createStatement()){
             stmt.execute(sql); 
         } catch (SQLException e) {

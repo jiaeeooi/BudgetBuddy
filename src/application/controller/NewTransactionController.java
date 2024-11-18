@@ -155,7 +155,6 @@ public class NewTransactionController {
 	        pstmt.setString(4, description);
 	        pstmt.setDouble(5, paymentAmount);
 	        pstmt.setDouble(6, depositAmount);
-	        
 	        pstmt.executeUpdate();
 	        System.out.println("Transaction inserted");
 	    } catch (SQLException e) {

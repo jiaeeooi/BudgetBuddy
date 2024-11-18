@@ -38,7 +38,6 @@ public class ViewAccountController {
         openingBalanceColumn.setCellValueFactory(new PropertyValueFactory<>("openingBalance"));        
         openingDateColumn.setCellValueFactory(new PropertyValueFactory<>("openingDate"));
 
-
         // Set a placeholder message for the TableView
         accountTable.setPlaceholder(new Label("No content in table"));
         
