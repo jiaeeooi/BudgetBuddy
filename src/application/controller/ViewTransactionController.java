@@ -86,7 +86,7 @@ public class ViewTransactionController {
     		AnchorPane pane1 = loader.load();
     		
     		ViewSearchedTransactionController controller = loader.getController();
-            controller.setSearchQuery(searchText);
+            controller.setSearchQuery(searchText); // Pass search text to the next controller
     		
     		HBox mainBox = commonObjs.getMainBox();
 			if (mainBox.getChildren().size() > 1) {
@@ -115,7 +115,8 @@ public class ViewTransactionController {
             // Populate the transactions list with data from ResultSet
             while (rs.next()) {
                 Transaction transaction = new Transaction(
-                        rs.getString("account_name"),
+                        rs.getInt("id"),
+                		rs.getString("account_name"),
                         rs.getString("transaction_type"),
                         rs.getString("transaction_date"),
                         rs.getString("description"),

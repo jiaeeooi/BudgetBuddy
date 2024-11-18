@@ -2,6 +2,7 @@ package application;
 
 public class Transaction {
 	
+	private int id;
 	private String account;
     private String transactionType;
     private String transactionDate;
@@ -9,8 +10,9 @@ public class Transaction {
     private Double paymentAmount;
     private Double depositAmount;
 
-    public Transaction(String account, String transactionType, String transactionDate, String transactionDescription, Double paymentAmount, Double depositAmount) {
-        this.account = account;
+    public Transaction(int id, String account, String transactionType, String transactionDate, String transactionDescription, Double paymentAmount, Double depositAmount) {
+    	this.id = id;
+    	this.account = account;
         this.transactionType = transactionType;
         this.transactionDate = transactionDate;
         this.transactionDescription = transactionDescription;
@@ -18,6 +20,7 @@ public class Transaction {
         this.depositAmount = depositAmount;
     }
 
+    public int getId() { return id; }
     public String getAccount() { return account; }
     public String getTransactionType() { return transactionType; }
     public String getTransactionDate() { return transactionDate; }

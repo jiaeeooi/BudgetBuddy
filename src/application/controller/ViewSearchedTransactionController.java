@@ -51,6 +51,8 @@ public class ViewSearchedTransactionController {
     
     private static final String TransactionsURL = "jdbc:sqlite:db/Transactions.db";
 	
+    private String searchText;
+    
     @FXML
     public void initialize() {
         // Set up cell value factories
@@ -61,7 +63,6 @@ public class ViewSearchedTransactionController {
         paymentAmountColumn.setCellValueFactory(new PropertyValueFactory<>("paymentAmount"));
         depositAmountColumn.setCellValueFactory(new PropertyValueFactory<>("depositAmount"));
 
-        /*
         // Add click listener
         searchedTransactionTable.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) { // Double click
@@ -71,10 +72,8 @@ public class ViewSearchedTransactionController {
                 }
             }
         });
-        */
     }
     
-    /*
     private void openTransactionEditor(Transaction transaction) {
         try {
             URL url = getClass().getClassLoader().getResource("view/EditTransaction.fxml");
@@ -84,7 +83,8 @@ public class ViewSearchedTransactionController {
             // Pass transaction data to editor controller
             EditTransactionController controller = loader.getController();
             controller.setTransactionData(transaction);
-
+            controller.setPreviousSearchQuery(searchText);
+            
             HBox mainBox = commonObjs.getMainBox();
             if (mainBox.getChildren().size() > 1) {
                 mainBox.getChildren().remove(1);
@@ -95,14 +95,16 @@ public class ViewSearchedTransactionController {
             e.printStackTrace();
         }
     }
-    */
     
     public void setSearchQuery(String searchText) {
-	   ObservableList<Transaction> searchResults = FXCollections.observableArrayList();
+	   
+    	this.searchText = searchText;
+    	
+    	ObservableList<Transaction> searchResults = FXCollections.observableArrayList();
 
-       String query = "SELECT * FROM Transactions WHERE LOWER(description) LIKE ? ORDER BY transaction_date DESC";
+    	String query = "SELECT * FROM Transactions WHERE LOWER(description) LIKE ? ORDER BY transaction_date DESC";
 
-       try (Connection conn = Database.connect(TransactionsURL);
+    	try (Connection conn = Database.connect(TransactionsURL);
             PreparedStatement pstmt = conn.prepareStatement(query)) {
 
            pstmt.setString(1, "%" + searchText + "%");
@@ -110,7 +112,8 @@ public class ViewSearchedTransactionController {
 
            while (rs.next()) {
                Transaction transaction = new Transaction(
-                       rs.getString("account_name"),
+                       rs.getInt("id"),
+            		   rs.getString("account_name"),
                        rs.getString("transaction_type"),
                        rs.getString("transaction_date"),
                        rs.getString("description"),
