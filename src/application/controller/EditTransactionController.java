@@ -62,7 +62,6 @@ public class EditTransactionController {
         transactionTypeDropdown.getItems().addAll(Database.getTransactionTypes());
 	}
 	
-	@FXML
 	public void setTransactionData(Transaction transaction) {
 		this.transactionToEdit = transaction;
 		

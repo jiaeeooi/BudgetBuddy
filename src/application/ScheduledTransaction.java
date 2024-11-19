@@ -1,7 +1,8 @@
 package application;
 
 public class ScheduledTransaction {
-    private String scheduleName;
+    private int id;
+	private String scheduleName;
     private String account;
     private String transactionType;
     private String frequency;
@@ -9,8 +10,9 @@ public class ScheduledTransaction {
     private double paymentAmount;
 
     // Constructor
-    public ScheduledTransaction(String scheduleName, String account, String transactionType, String frequency, int dueDate, double paymentAmount) {
-        this.scheduleName = scheduleName;
+    public ScheduledTransaction(int id, String scheduleName, String account, String transactionType, String frequency, int dueDate, double paymentAmount) {
+        this.id = id;
+    	this.scheduleName = scheduleName;
         this.account = account;
         this.transactionType = transactionType;
         this.frequency = frequency;
@@ -19,6 +21,8 @@ public class ScheduledTransaction {
     }
 
     // Getters and setters
+    public int getId() { return id; }
+    
     public String getScheduleName() {
         return scheduleName;
     }

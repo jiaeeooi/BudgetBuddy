@@ -115,7 +115,8 @@ public class ViewScheduledTransactionController {
             // Populate the scheduledTransactions list with data from ResultSet
             while (rs.next()) {
                 ScheduledTransaction scheduledTransaction = new ScheduledTransaction(
-                        rs.getString("schedule_name"),
+                		rs.getInt("id"),
+                		rs.getString("schedule_name"),
                         rs.getString("account_name"),
                         rs.getString("transaction_type"),
                         rs.getString("frequency"),
