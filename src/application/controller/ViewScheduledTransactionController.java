@@ -1,21 +1,37 @@
 package application.controller;
 
+import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import application.CommonObjs;
 import application.Database;
 import application.ScheduledTransaction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
 public class ViewScheduledTransactionController {
+	
+	private CommonObjs commonObjs = CommonObjs.getInstance();
+	
+	@FXML
+	private TextField descriptionSearchField;
+	
+	@FXML
+	private Button searchButton;
 	
 	@FXML
     private TableView<ScheduledTransaction> scheduledTransactionTable;
@@ -56,6 +72,32 @@ public class ViewScheduledTransactionController {
         loadScheduledTransactions();
     }
     
+    @FXML
+	private void handleSearch() {
+    	String searchText = descriptionSearchField.getText().toLowerCase();
+    	URL url = getClass().getClassLoader().getResource("view/ViewSearchedScheduledTransaction.fxml");
+    	
+    	if (searchText.isEmpty()) {
+    		return;
+        }
+    	
+    	try {
+    		FXMLLoader loader = new FXMLLoader(url);
+    		AnchorPane pane1 = loader.load();
+    		
+    		ViewSearchedScheduledTransactionController controller = loader.getController();
+            controller.setSearchQuery(searchText); // Pass search text to the next controller
+    		
+    		HBox mainBox = commonObjs.getMainBox();
+			if (mainBox.getChildren().size() > 1) {
+				mainBox.getChildren().remove(1);
+			}
+			mainBox.getChildren().add(pane1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
     private void loadScheduledTransactions() {
         ObservableList<ScheduledTransaction> scheduledTransactions = FXCollections.observableArrayList();
 
@@ -73,7 +115,8 @@ public class ViewScheduledTransactionController {
             // Populate the scheduledTransactions list with data from ResultSet
             while (rs.next()) {
                 ScheduledTransaction scheduledTransaction = new ScheduledTransaction(
-                        rs.getString("schedule_name"),
+                		rs.getInt("id"),
+                		rs.getString("schedule_name"),
                         rs.getString("account_name"),
                         rs.getString("transaction_type"),
                         rs.getString("frequency"),

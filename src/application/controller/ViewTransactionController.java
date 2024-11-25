@@ -1,22 +1,38 @@
 package application.controller;
 
+import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import application.CommonObjs;
 import application.Database;
 import application.Transaction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
 public class ViewTransactionController {
 
+	private CommonObjs commonObjs = CommonObjs.getInstance();
+	
+	@FXML
+	private TextField descriptionSearchField;
+	
+	@FXML
+	private Button searchButton;
+	
 	@FXML
     private TableView<Transaction> transactionTable;
     
@@ -56,6 +72,32 @@ public class ViewTransactionController {
         loadTransactions();
     }
     
+    @FXML
+	private void handleSearch() {
+    	String searchText = descriptionSearchField.getText().toLowerCase();
+    	URL url = getClass().getClassLoader().getResource("view/ViewSearchedTransaction.fxml");
+    	
+    	if (searchText.isEmpty()) {
+    		return;
+        }
+    	
+    	try {
+    		FXMLLoader loader = new FXMLLoader(url);
+    		AnchorPane pane1 = loader.load();
+    		
+    		ViewSearchedTransactionController controller = loader.getController();
+            controller.setSearchQuery(searchText); // Pass search text to the next controller
+    		
+    		HBox mainBox = commonObjs.getMainBox();
+			if (mainBox.getChildren().size() > 1) {
+				mainBox.getChildren().remove(1);
+			}
+			mainBox.getChildren().add(pane1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
     private void loadTransactions() {
         ObservableList<Transaction> transactions = FXCollections.observableArrayList();
 
@@ -73,7 +115,8 @@ public class ViewTransactionController {
             // Populate the transactions list with data from ResultSet
             while (rs.next()) {
                 Transaction transaction = new Transaction(
-                        rs.getString("account_name"),
+                        rs.getInt("id"),
+                		rs.getString("account_name"),
                         rs.getString("transaction_type"),
                         rs.getString("transaction_date"),
                         rs.getString("description"),

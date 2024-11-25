@@ -14,7 +14,7 @@
             <Button layoutX="159.0" layoutY="109.0" mnemonicParsing="false" onAction="#viewAccountOp" prefHeight="45.0" prefWidth="110.0" text="View Account" wrapText="true" />
             <Button layoutX="34.0" layoutY="176.0" mnemonicParsing="false" onAction="#defineNewTransactionOp" prefHeight="45.0" prefWidth="110.0" text="New Transaction" textAlignment="CENTER" wrapText="true" />
             <Button layoutX="33.0" layoutY="243.0" mnemonicParsing="false" onAction="#defineNewScheduledTransactionOp" prefHeight="45.0" prefWidth="110.0" text="New Scheduled Transaction" textAlignment="CENTER" wrapText="true" />
-            <Button layoutX="89.0" layoutY="310.0" mnemonicParsing="false" onAction="#defineNewTransactionTypeOp" prefHeight="45.0" prefWidth="125.0" text="New Transaction Type" textAlignment="CENTER" wrapText="true" />
+            <Button layoutX="34.0" layoutY="309.0" mnemonicParsing="false" onAction="#defineNewTransactionTypeOp" prefHeight="45.0" prefWidth="110.0" text="New Transaction Type" textAlignment="CENTER" wrapText="true" />
             <Label layoutX="77.0" layoutY="34.0" prefHeight="51.0" prefWidth="147.0" text="BudgetBuddy" textAlignment="CENTER">
                <font>
                   <Font size="24.0" />
@@ -22,6 +22,7 @@
             </Label>
             <Button layoutX="159.0" layoutY="176.0" mnemonicParsing="false" onAction="#viewTransactionOp" prefHeight="45.0" prefWidth="110.0" text="View Transaction" />
             <Button layoutX="159.0" layoutY="243.0" mnemonicParsing="false" onAction="#viewScheduledTransactionOp" prefHeight="45.0" prefWidth="110.0" text="View Scheduled Transaction" textAlignment="CENTER" wrapText="true" />
+            <Button layoutX="159.0" layoutY="309.0" mnemonicParsing="false" onAction="#viewReportOp" prefHeight="45.0" prefWidth="110.0" text="View Report" />
          </children>
       </AnchorPane>
    </children>
