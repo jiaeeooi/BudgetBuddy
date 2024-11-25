@@ -15,6 +15,7 @@ public class Main extends Application {
 			Scene scene = new Scene(mainBox);
 			scene.getStylesheets().add(getClass().getClassLoader().getResource("css/application.css").toExternalForm());
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("Budget Buddy");
 			primaryStage.show();
 			
 			//Keep a reference of the mainBox inside the commonObjs object
@@ -29,6 +30,9 @@ public class Main extends Application {
 		Database.initializeTransactionTypesDatabase();
 		Database.initializeTransactionsDatabase();
 		Database.initializeScheduledTransactionsDatabase();
+		
+		// Check for due transactions upon launch
+        NotificationManager.checkScheduledTransactions();
 	}
 	
 	public static void main(String[] args) {
