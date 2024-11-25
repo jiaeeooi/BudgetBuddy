@@ -50,7 +50,7 @@ public class TransactionTypeReportPageController {
     private String transactionTypeText;
 	
     public void initialize() {
-		accountColumn.setCellValueFactory(new PropertyValueFactory<>("transactionType"));
+		accountColumn.setCellValueFactory(new PropertyValueFactory<>("account"));
         transactionDateColumn.setCellValueFactory(new PropertyValueFactory<>("transactionDate"));
         transactionDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("transactionDescription"));
         paymentAmountColumn.setCellValueFactory(new PropertyValueFactory<>("paymentAmount"));
