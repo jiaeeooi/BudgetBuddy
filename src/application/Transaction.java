@@ -1,6 +1,6 @@
 package application;
 
-public class Transaction {
+public class Transaction implements Transactionable{
 	
 	private int id;
 	private String account;

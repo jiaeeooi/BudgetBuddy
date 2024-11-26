@@ -1,13 +1,13 @@
 package application;
 
-public class ScheduledTransaction {
+public class ScheduledTransaction implements Transactionable{
     private int id;
 	private String scheduleName;
     private String account;
     private String transactionType;
     private String frequency;
     private int dueDate;
-    private double paymentAmount;
+    private Double paymentAmount;
 
     // Constructor
     public ScheduledTransaction(int id, String scheduleName, String account, String transactionType, String frequency, int dueDate, double paymentAmount) {
@@ -63,7 +63,7 @@ public class ScheduledTransaction {
         this.dueDate = dueDate;
     }
 
-    public double getPaymentAmount() {
+    public Double getPaymentAmount() {
         return paymentAmount;
     }
 
