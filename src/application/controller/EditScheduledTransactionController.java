@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import application.CommonObjs;
 import application.Database;
 import application.ScheduledTransaction;
+import application.Transactionable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -50,7 +51,7 @@ public class EditScheduledTransactionController {
 	
 	private String previousSearchQuery;
 	
-	private ScheduledTransaction scheduledTransactionToEdit;
+	private Transactionable scheduledTransactionToEdit;
 	
 	private static final String ScheduledTransactionsURL = "jdbc:sqlite:db/ScheduledTransactions.db";
 	
@@ -61,15 +62,22 @@ public class EditScheduledTransactionController {
         frequencyDropdown.getItems().add("Monthly");
 	}
 	
-	public void setScheduledTransactionData(ScheduledTransaction scheduledTransaction) {
+	public void setScheduledTransactionData(Transactionable scheduledTransaction) {
         this.scheduledTransactionToEdit = scheduledTransaction;
         
-        scheduleNameField.setText(scheduledTransaction.getScheduleName());
-        accountDropdown.setValue(scheduledTransaction.getAccount());
-        transactionTypeDropdown.setValue(scheduledTransaction.getTransactionType());
-        frequencyDropdown.setValue(scheduledTransaction.getFrequency());
-        dueDateField.setText(String.valueOf(scheduledTransaction.getDueDate()));
-        paymentAmountField.setText(String.valueOf(scheduledTransaction.getPaymentAmount()));
+        if (scheduledTransactionToEdit instanceof ScheduledTransaction) {
+        	ScheduledTransaction strans = (ScheduledTransaction) scheduledTransactionToEdit;
+        	
+        	scheduleNameField.setText(strans.getScheduleName());
+            accountDropdown.setValue(strans.getAccount());
+            transactionTypeDropdown.setValue(strans.getTransactionType());
+            frequencyDropdown.setValue(strans.getFrequency());
+            dueDateField.setText(String.valueOf(strans.getDueDate()));
+            paymentAmountField.setText(String.valueOf(strans.getPaymentAmount()));
+        } else {
+        	showAlert(AlertType.ERROR, "Invalid Scheduled Transaction", "The provided scheduled transaction is not valid.");
+        }
+        
     }
 	
 	public void setPreviousSearchQuery(String searchQuery) {
@@ -91,10 +99,19 @@ public class EditScheduledTransactionController {
 	        return;
 	    }
 
-        if (!scheduleName.equals(scheduledTransactionToEdit.getScheduleName()) && isDuplicateScheduleName(scheduleName)) {
-	    	 showAlert(AlertType.ERROR, "Duplicate Schedule's Name", "A schedule with this name already exists.");
-	         return;
-	    }
+        // Cast the Transactionable object to ScheduledTransaction
+        if (scheduledTransactionToEdit instanceof ScheduledTransaction) {
+            ScheduledTransaction scheduledTransaction = (ScheduledTransaction) scheduledTransactionToEdit;
+
+            // Check for duplicate schedule name
+            if (!scheduleName.equals(scheduledTransaction.getScheduleName()) && isDuplicateScheduleName(scheduleName)) {
+                showAlert(AlertType.ERROR, "Duplicate Schedule's Name", "A schedule with this name already exists.");
+                return;
+            }
+        } else {
+            showAlert(AlertType.ERROR, "Invalid Scheduled Transaction", "The provided scheduled transaction is not valid.");
+            return;
+        }
         
         int dueDate;
 	    try {

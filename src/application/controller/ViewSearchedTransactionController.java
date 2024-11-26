@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import application.CommonObjs;
 import application.Database;
 import application.Transaction;
+import application.Transactionable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -29,25 +30,25 @@ public class ViewSearchedTransactionController {
 	private Button backButton;
 	
 	@FXML
-    private TableView<Transaction> searchedTransactionTable;
+    private TableView<Transactionable> searchedTransactionTable;
 	
 	@FXML
-    private TableColumn<Transaction, String> accountColumn;
+    private TableColumn<Transactionable, String> accountColumn;
 
     @FXML
-    private TableColumn<Transaction, String> transactionTypeColumn;
+    private TableColumn<Transactionable, String> transactionTypeColumn;
     
     @FXML
-    private TableColumn<Transaction, String> transactionDateColumn;
+    private TableColumn<Transactionable, String> transactionDateColumn;
     
     @FXML
-    private TableColumn<Transaction, String> transactionDescriptionColumn;
+    private TableColumn<Transactionable, String> transactionDescriptionColumn;
     
     @FXML
-    private TableColumn<Transaction, Double> paymentAmountColumn;
+    private TableColumn<Transactionable, Double> paymentAmountColumn;
     
     @FXML
-    private TableColumn<Transaction, Double> depositAmountColumn;
+    private TableColumn<Transactionable, Double> depositAmountColumn;
     
     private static final String TransactionsURL = "jdbc:sqlite:db/Transactions.db";
 	
@@ -66,7 +67,7 @@ public class ViewSearchedTransactionController {
         // Add click listener
         searchedTransactionTable.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) { // Double click
-                Transaction selectedTransaction = searchedTransactionTable.getSelectionModel().getSelectedItem();
+                Transactionable selectedTransaction = searchedTransactionTable.getSelectionModel().getSelectedItem();
                 if (selectedTransaction != null) {
                     openTransactionEditor(selectedTransaction);
                 }
@@ -74,7 +75,7 @@ public class ViewSearchedTransactionController {
         });
     }
     
-    private void openTransactionEditor(Transaction transaction) {
+    private void openTransactionEditor(Transactionable transaction) {
         try {
             URL url = getClass().getClassLoader().getResource("view/EditTransaction.fxml");
             FXMLLoader loader = new FXMLLoader(url);
@@ -100,7 +101,7 @@ public class ViewSearchedTransactionController {
 	   
     	this.searchText = searchText;
     	
-    	ObservableList<Transaction> searchResults = FXCollections.observableArrayList();
+    	ObservableList<Transactionable> searchResults = FXCollections.observableArrayList();
 
     	String query = "SELECT * FROM Transactions WHERE LOWER(description) LIKE ? ORDER BY transaction_date DESC";
 

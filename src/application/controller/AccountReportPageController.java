@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import application.CommonObjs;
 import application.Database;
 import application.Transaction;
+import application.Transactionable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,25 +26,25 @@ public class AccountReportPageController {
 	private CommonObjs commonObjs = CommonObjs.getInstance();
 	
 	@FXML
-    private TableView<Transaction> accountReportTable;
+    private TableView<Transactionable> accountReportTable;
 	
 	@FXML
-    private TableColumn<Transaction, String> accountColumn;
+    private TableColumn<Transactionable, String> accountColumn;
 
     @FXML
-    private TableColumn<Transaction, String> transactionTypeColumn;
+    private TableColumn<Transactionable, String> transactionTypeColumn;
     
     @FXML
-    private TableColumn<Transaction, String> transactionDateColumn;
+    private TableColumn<Transactionable, String> transactionDateColumn;
     
     @FXML
-    private TableColumn<Transaction, String> transactionDescriptionColumn;
+    private TableColumn<Transactionable, String> transactionDescriptionColumn;
     
     @FXML
-    private TableColumn<Transaction, Double> paymentAmountColumn;
+    private TableColumn<Transactionable, Double> paymentAmountColumn;
     
     @FXML
-    private TableColumn<Transaction, Double> depositAmountColumn;
+    private TableColumn<Transactionable, Double> depositAmountColumn;
     
     private static final String TransactionsURL = "jdbc:sqlite:db/Transactions.db";
 	
@@ -59,7 +60,7 @@ public class AccountReportPageController {
         // Add click listener
         accountReportTable.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) { // Double click
-                Transaction selectedTransaction = accountReportTable.getSelectionModel().getSelectedItem();
+                Transactionable selectedTransaction = accountReportTable.getSelectionModel().getSelectedItem();
                 if (selectedTransaction != null) {
                     openTransactionReader(selectedTransaction);
                 }
@@ -67,7 +68,7 @@ public class AccountReportPageController {
         });
 	}
 	
-	private void openTransactionReader(Transaction transaction) {
+	private void openTransactionReader(Transactionable transaction) {
 		try {
             URL url = getClass().getClassLoader().getResource("view/ReadTransactionByAccount.fxml");
             FXMLLoader loader = new FXMLLoader(url);
@@ -93,7 +94,7 @@ public class AccountReportPageController {
 		
 		this.accountText = selectedAccountOrType;
 		
-		ObservableList<Transaction> reportResults = FXCollections.observableArrayList();
+		ObservableList<Transactionable> reportResults = FXCollections.observableArrayList();
 		
 		String query = "SELECT * FROM Transactions WHERE account_name = ? ORDER BY transaction_date DESC";
 		
@@ -104,7 +105,7 @@ public class AccountReportPageController {
 			ResultSet rs = pstmt.executeQuery();
 
 	     	while (rs.next()) {
-	     		Transaction transaction = new Transaction(
+	     		Transactionable transaction = new Transaction(
 	     				rs.getInt("id"),
 	                    rs.getString("account_name"),
 	                    rs.getString("transaction_type"),
