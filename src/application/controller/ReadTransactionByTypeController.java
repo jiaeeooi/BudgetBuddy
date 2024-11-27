@@ -17,7 +17,7 @@ import javafx.scene.layout.HBox;
 
 public class ReadTransactionByTypeController {
 
-private CommonObjs commonObjs = CommonObjs.getInstance();
+	private CommonObjs commonObjs = CommonObjs.getInstance();
 	
 	@FXML
 	private TextField accountDropdown;
