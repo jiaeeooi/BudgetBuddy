@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.TransactionTypeReportPageController">
    <children>
-      <Label layoutX="34.0" layoutY="10.0" text="Report of Transactions by an Account">
+      <Label layoutX="34.0" layoutY="10.0" text="Report of Transactions by a Transaction Type">
          <font>
             <Font size="20.0" />
          </font>
