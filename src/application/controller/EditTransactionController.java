@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import application.CommonObjs;
 import application.Database;
 import application.Transaction;
+import application.Transactionable;
 
 public class EditTransactionController {
 
@@ -52,7 +53,7 @@ public class EditTransactionController {
 	
 	private String previousSearchQuery;
 	
-	private Transaction transactionToEdit;
+	private Transactionable transactionToEdit;
 	
 	private static final String TransactionsURL = "jdbc:sqlite:db/Transactions.db";
 	
@@ -62,16 +63,23 @@ public class EditTransactionController {
         transactionTypeDropdown.getItems().addAll(Database.getTransactionTypes());
 	}
 	
-	public void setTransactionData(Transaction transaction) {
+	public void setTransactionData(Transactionable transaction) {
 		this.transactionToEdit = transaction;
 		
-		// Pre-fill the fields with transaction data
-		accountDropdown.setValue(transaction.getAccount());
-        transactionTypeDropdown.setValue(transaction.getTransactionType());
-        transactionDateField.setValue(LocalDate.parse(transaction.getTransactionDate()));
-        transactionDescriptionField.setText(transaction.getTransactionDescription());
-        paymentAmountField.setText(String.valueOf(transaction.getPaymentAmount()));
-        depositAmountField.setText(String.valueOf(transaction.getDepositAmount()));
+		if (transactionToEdit instanceof Transaction) {
+	        Transaction trans = (Transaction) transactionToEdit;
+	        
+	        // Pre-fill the fields with transaction data
+	        accountDropdown.setValue(trans.getAccount());
+	        transactionTypeDropdown.setValue(trans.getTransactionType());
+	        transactionDateField.setValue(LocalDate.parse(trans.getTransactionDate()));
+	        transactionDescriptionField.setText(trans.getTransactionDescription());
+	        paymentAmountField.setText(String.valueOf(trans.getPaymentAmount()));
+	        depositAmountField.setText(String.valueOf(trans.getDepositAmount()));
+	    } else {
+	        // Handle the case where it's not a Transaction
+	        showAlert(AlertType.ERROR, "Invalid Transaction", "The provided transaction is not valid.");
+	    }
 	}
 	
 	public void setPreviousSearchQuery(String searchQuery) {

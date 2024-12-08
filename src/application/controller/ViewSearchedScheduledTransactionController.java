@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import application.CommonObjs;
 import application.Database;
 import application.ScheduledTransaction;
+import application.Transactionable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -29,25 +30,25 @@ public class ViewSearchedScheduledTransactionController {
 	private Button backButton;
 	
 	@FXML
-    private TableView<ScheduledTransaction> searchedScheduledTransactionTable;
+    private TableView<Transactionable> searchedScheduledTransactionTable;
 	
 	@FXML
-    private TableColumn<ScheduledTransaction, String> scheduleNameColumn;
+    private TableColumn<Transactionable, String> scheduleNameColumn;
     
     @FXML
-    private TableColumn<ScheduledTransaction, String> accountColumn;
+    private TableColumn<Transactionable, String> accountColumn;
     
     @FXML
-    private TableColumn<ScheduledTransaction, String> transactionTypeColumn;
+    private TableColumn<Transactionable, String> transactionTypeColumn;
     
     @FXML
-    private TableColumn<ScheduledTransaction, String> frequencyColumn;
+    private TableColumn<Transactionable, String> frequencyColumn;
     
     @FXML
-    private TableColumn<ScheduledTransaction, Integer> dueDateColumn;
+    private TableColumn<Transactionable, Integer> dueDateColumn;
     
     @FXML
-    private TableColumn<ScheduledTransaction, Double> paymentAmountColumn;
+    private TableColumn<Transactionable, Double> paymentAmountColumn;
     
     private static final String ScheduledTransactionsURL = "jdbc:sqlite:db/ScheduledTransactions.db";
     
@@ -66,7 +67,7 @@ public class ViewSearchedScheduledTransactionController {
         // Add click listener
         searchedScheduledTransactionTable.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) { // Double-click
-                ScheduledTransaction selectedScheduledTransaction = searchedScheduledTransactionTable.getSelectionModel().getSelectedItem();
+            	Transactionable selectedScheduledTransaction = searchedScheduledTransactionTable.getSelectionModel().getSelectedItem();
                 if (selectedScheduledTransaction != null) {
                     openScheduledTransactionEditor(selectedScheduledTransaction);
                 }
@@ -74,7 +75,7 @@ public class ViewSearchedScheduledTransactionController {
         });
     }
     
-    private void openScheduledTransactionEditor(ScheduledTransaction scheduledTransaction) {
+    private void openScheduledTransactionEditor(Transactionable scheduledTransaction) {
         try {
             URL url = getClass().getClassLoader().getResource("view/EditScheduledTransaction.fxml");
             FXMLLoader loader = new FXMLLoader(url);
@@ -99,7 +100,7 @@ public class ViewSearchedScheduledTransactionController {
     public void setSearchQuery(String searchText) {
         this.searchText = searchText;
         
-        ObservableList<ScheduledTransaction> searchResults = FXCollections.observableArrayList();
+        ObservableList<Transactionable> searchResults = FXCollections.observableArrayList();
 
         String query = "SELECT * FROM ScheduledTransactions WHERE LOWER(schedule_name) LIKE ? ORDER BY due_date ASC";
 
@@ -110,7 +111,7 @@ public class ViewSearchedScheduledTransactionController {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                ScheduledTransaction scheduledTransaction = new ScheduledTransaction(
+            	Transactionable scheduledTransaction = new ScheduledTransaction(
                         rs.getInt("id"),
                 		rs.getString("schedule_name"),
                         rs.getString("account_name"),

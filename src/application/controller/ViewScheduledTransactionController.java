@@ -10,6 +10,7 @@ import java.sql.Statement;
 import application.CommonObjs;
 import application.Database;
 import application.ScheduledTransaction;
+import application.Transactionable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -34,25 +35,25 @@ public class ViewScheduledTransactionController {
 	private Button searchButton;
 	
 	@FXML
-    private TableView<ScheduledTransaction> scheduledTransactionTable;
+    private TableView<Transactionable> scheduledTransactionTable;
 	
 	@FXML
-    private TableColumn<ScheduledTransaction, String> scheduleNameColumn;
+    private TableColumn<Transactionable, String> scheduleNameColumn;
     
     @FXML
-    private TableColumn<ScheduledTransaction, String> accountColumn;
+    private TableColumn<Transactionable, String> accountColumn;
     
     @FXML
-    private TableColumn<ScheduledTransaction, String> transactionTypeColumn;
+    private TableColumn<Transactionable, String> transactionTypeColumn;
     
     @FXML
-    private TableColumn<ScheduledTransaction, String> frequencyColumn;
+    private TableColumn<Transactionable, String> frequencyColumn;
     
     @FXML
-    private TableColumn<ScheduledTransaction, Integer> dueDateColumn;
+    private TableColumn<Transactionable, Integer> dueDateColumn;
     
     @FXML
-    private TableColumn<ScheduledTransaction, Double> paymentAmountColumn;
+    private TableColumn<Transactionable, Double> paymentAmountColumn;
     
     private static final String ScheduledTransactionsURL = "jdbc:sqlite:db/ScheduledTransactions.db";
     
@@ -99,7 +100,7 @@ public class ViewScheduledTransactionController {
     }
     
     private void loadScheduledTransactions() {
-        ObservableList<ScheduledTransaction> scheduledTransactions = FXCollections.observableArrayList();
+        ObservableList<Transactionable> scheduledTransactions = FXCollections.observableArrayList();
 
         String query = "SELECT * FROM ScheduledTransactions ORDER BY due_date ASC";
 
@@ -114,7 +115,7 @@ public class ViewScheduledTransactionController {
 
             // Populate the scheduledTransactions list with data from ResultSet
             while (rs.next()) {
-                ScheduledTransaction scheduledTransaction = new ScheduledTransaction(
+            	Transactionable scheduledTransaction = new ScheduledTransaction(
                 		rs.getInt("id"),
                 		rs.getString("schedule_name"),
                         rs.getString("account_name"),

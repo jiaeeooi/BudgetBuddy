@@ -10,6 +10,7 @@ import java.sql.Statement;
 import application.CommonObjs;
 import application.Database;
 import application.Transaction;
+import application.Transactionable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -34,25 +35,25 @@ public class ViewTransactionController {
 	private Button searchButton;
 	
 	@FXML
-    private TableView<Transaction> transactionTable;
+    private TableView<Transactionable> transactionTable;
     
     @FXML
-    private TableColumn<Transaction, String> accountColumn;
+    private TableColumn<Transactionable, String> accountColumn;
 
     @FXML
-    private TableColumn<Transaction, String> transactionTypeColumn;
+    private TableColumn<Transactionable, String> transactionTypeColumn;
     
     @FXML
-    private TableColumn<Transaction, String> transactionDateColumn;
+    private TableColumn<Transactionable, String> transactionDateColumn;
     
     @FXML
-    private TableColumn<Transaction, String> transactionDescriptionColumn;
+    private TableColumn<Transactionable, String> transactionDescriptionColumn;
     
     @FXML
-    private TableColumn<Transaction, Double> paymentAmountColumn;
+    private TableColumn<Transactionable, Double> paymentAmountColumn;
     
     @FXML
-    private TableColumn<Transaction, Double> depositAmountColumn;
+    private TableColumn<Transactionable, Double> depositAmountColumn;
     
     private static final String TransactionsURL = "jdbc:sqlite:db/Transactions.db";
     
@@ -99,7 +100,7 @@ public class ViewTransactionController {
     }
     
     private void loadTransactions() {
-        ObservableList<Transaction> transactions = FXCollections.observableArrayList();
+        ObservableList<Transactionable> transactions = FXCollections.observableArrayList();
 
         String query = "SELECT * FROM Transactions ORDER BY transaction_date DESC";
 
@@ -114,7 +115,7 @@ public class ViewTransactionController {
 
             // Populate the transactions list with data from ResultSet
             while (rs.next()) {
-                Transaction transaction = new Transaction(
+                Transactionable transaction = new Transaction(
                         rs.getInt("id"),
                 		rs.getString("account_name"),
                         rs.getString("transaction_type"),
